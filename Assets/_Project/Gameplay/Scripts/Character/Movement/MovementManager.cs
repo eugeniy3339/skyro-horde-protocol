@@ -49,6 +49,7 @@ namespace HordeProtocol.Gameplay
 
             curSpeed = movement.normalSpeed;
 
+            rigidbody.gravityScale = 0f;
             canChangeLinearDamping = true;
             linearDamping = defaultLinearDamping;
         }

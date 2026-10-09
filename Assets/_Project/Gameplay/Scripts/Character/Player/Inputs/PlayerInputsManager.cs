@@ -46,5 +46,15 @@ namespace HordeProtocol.Gameplay
         {
 
         }
+
+        private void OnEnable()
+        {
+            playerInputs.Enable();
+        }
+
+        private void OnDisable()
+        {
+            playerInputs.Disable();
+        }
     }
 }
