@@ -2,7 +2,8 @@
     "name": "HordeProtocol.Gameplay",
     "rootNamespace": "HordeProtocol.Gameplay",
     "references": [
-        "HordeProtocol.Data"
+        "HordeProtocol.Data",
+        "Unity.InputSystem"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
