@@ -1,6 +1,6 @@
 001
 
-Status: Awaiting Approval
+Status: Approved
 
 Context - Creation of new project
 
