@@ -32,6 +32,7 @@ namespace HordeProtocol.Gameplay
 
         public void Launch(Vector2 dir)
         {
+            transform.right = dir;
             _rb.linearVelocity = dir.normalized * _speed;
         }
 
