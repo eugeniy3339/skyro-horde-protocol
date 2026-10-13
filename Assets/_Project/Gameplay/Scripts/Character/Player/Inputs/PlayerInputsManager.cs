@@ -13,6 +13,7 @@ namespace HordeProtocol.Gameplay
         private Horde playerInputs;
 
         private Vector2 lastMoveInput;
+        private bool isShooting = false;
 
         private void Awake()
         {
@@ -29,6 +30,7 @@ namespace HordeProtocol.Gameplay
             playerInputs.Player.Dash.started += OnDash;
 
             playerInputs.Player.Fire.started += OnFire; 
+            playerInputs.Player.Fire.canceled += OnFire; 
         }
 
         public void OnMove(InputAction.CallbackContext context)
@@ -48,6 +50,28 @@ namespace HordeProtocol.Gameplay
 
         public void OnFire(InputAction.CallbackContext context)
         {
+            if (context.performed) return;
+
+            isShooting = context.started;
+            if (isShooting)
+            {
+                shooting.onShootCooldown += OnShootCooldown;
+                Fire();
+            }
+            else
+            {
+                shooting.onShootCooldown -= OnShootCooldown;
+            }
+        }
+
+        private void OnShootCooldown()
+        {
+            if (!isShooting) return;
+            Fire();
+        } 
+
+        private void Fire()
+        {
             Vector2 mousePos = playerInputs.Player.Mouse.ReadValue<Vector2>();
             Vector2 worldMousePos = Camera.main.ScreenToWorldPoint(mousePos);
 
@@ -64,6 +88,7 @@ namespace HordeProtocol.Gameplay
         private void OnDisable()
         {
             playerInputs.Disable();
+            shooting.onShootCooldown -= OnShootCooldown;
         }
     }
 }

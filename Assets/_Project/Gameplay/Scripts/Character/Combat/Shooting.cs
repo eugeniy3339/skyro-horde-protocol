@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +13,8 @@ namespace HordeProtocol.Gameplay
         private Queue<Bullet> _bulletPool;
         private float _cooldownTimer;
 
+        public event Action onShootCooldown;
+
         private void Awake()
         {
             InitPool();
@@ -20,7 +23,13 @@ namespace HordeProtocol.Gameplay
         private void Update()
         {
             if (_cooldownTimer > 0f)
+            {
                 _cooldownTimer -= Time.deltaTime;
+                if(_cooldownTimer <= 0f)
+                {
+                    onShootCooldown?.Invoke();
+                }
+            }
         }
 
         /// <summary>
