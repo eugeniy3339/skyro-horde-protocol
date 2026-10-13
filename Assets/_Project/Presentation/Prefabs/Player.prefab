@@ -134,12 +134,12 @@ GameObject:
   - component: {fileID: 8751857441637108997}
   - component: {fileID: 1688803182874285078}
   - component: {fileID: 5607406671741318578}
-  - component: {fileID: 8458199914738622300}
+  - component: {fileID: 8523675032992960109}
   - component: {fileID: 916782217586053841}
   - component: {fileID: 3892493951330928067}
   - component: {fileID: 6887802253126101150}
   - component: {fileID: 7311538203416288754}
-  - component: {fileID: 7833040700811307924}
+  - component: {fileID: 5628602180175052585}
   - component: {fileID: 8704947263726174540}
   m_Layer: 0
   m_Name: Player
@@ -228,7 +228,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 2}
   m_Direction: 0
---- !u!114 &8458199914738622300
+--- !u!114 &8523675032992960109
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -237,9 +237,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3939971802650502347}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68bcfecacdca7f24f8ffe972a896389a, type: 3}
+  m_Script: {fileID: 11500000, guid: f1f07350378dc654bad3b429d90d6cd9, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: HordeProtocol.Gameplay::HordeProtocol.Gameplay.Character
+  m_EditorClassIdentifier: HordeProtocol.Gameplay::HordeProtocol.Gameplay.Player
 --- !u!95 &916782217586053841
 Animator:
   serializedVersion: 7
@@ -299,7 +299,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: HordeProtocol.Gameplay::HordeProtocol.Gameplay.MovementManager
   defaultLinearDamping: 15
---- !u!114 &7833040700811307924
+--- !u!114 &5628602180175052585
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -308,10 +308,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3939971802650502347}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4855e73e3c66f045ad7a1b949fbf552, type: 3}
+  m_Script: {fileID: 11500000, guid: e63d45b2b8636ad45ae5638d4c48c272, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: HordeProtocol.Gameplay::HordeProtocol.Gameplay.PlayerMovement
-  _normalSpeed: 7
+  m_EditorClassIdentifier: HordeProtocol.Gameplay::HordeProtocol.Gameplay.Movement
+  _normalSpeed: 3
   moveDir: {x: 0, y: 0}
 --- !u!114 &8704947263726174540
 MonoBehaviour:

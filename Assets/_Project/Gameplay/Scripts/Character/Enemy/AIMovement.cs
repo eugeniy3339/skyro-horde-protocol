@@ -8,11 +8,13 @@ namespace HordeProtocol.Gameplay
 
         private void Update()
         {
-            if (_destinationTransform == null) return;
+            if (_destinationTransform == null) { moveDir = Vector2.zero; return; }
 
             Vector2 toDestination = (Vector2)_destinationTransform.position - (Vector2)transform.position;
 
-            if (toDestination.magnitude >= 0.1f)
+            print(toDestination);
+
+            if (toDestination.magnitude > 0.1f)
                 moveDir = toDestination.normalized;
             else
                 moveDir = Vector2.zero;
