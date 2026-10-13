@@ -119,6 +119,25 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &1427610775 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3939971802650502347, guid: 4a604121cb7541c4088edb7a713591d6, type: 3}
+  m_PrefabInstance: {fileID: 7001510377268745828}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1427610788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1427610775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a9c742956e51a54b8ee5eead9b6c85c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: HordeProtocol.Gameplay::HordeProtocol.Gameplay.Shooting
+  _bulletPrefab: {fileID: 8571705800728946048, guid: 693bbeed4ab16ca4aaec496cb6e13eab, type: 3}
+  _shootCooldown: 0.25
 --- !u!1 &1528327354
 GameObject:
   m_ObjectHideFlags: 0
@@ -389,7 +408,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3939971802650502347, guid: 4a604121cb7541c4088edb7a713591d6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1427610788}
   m_SourcePrefab: {fileID: 100100000, guid: 4a604121cb7541c4088edb7a713591d6, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

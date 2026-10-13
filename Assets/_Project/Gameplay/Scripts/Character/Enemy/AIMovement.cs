@@ -12,8 +12,6 @@ namespace HordeProtocol.Gameplay
 
             Vector2 toDestination = (Vector2)_destinationTransform.position - (Vector2)transform.position;
 
-            print(toDestination);
-
             if (toDestination.magnitude > 0.1f)
                 moveDir = toDestination.normalized;
             else

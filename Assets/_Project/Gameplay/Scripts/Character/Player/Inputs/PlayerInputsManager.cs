@@ -8,6 +8,7 @@ namespace HordeProtocol.Gameplay
     {
         private Movement movement;
         private Dash dash;
+        private Shooting shooting;
 
         private Horde playerInputs;
 
@@ -17,6 +18,7 @@ namespace HordeProtocol.Gameplay
         {
             movement = GetComponent<Movement>();
             dash = GetComponent<Dash>();
+            shooting = GetComponent<Shooting>();
 
             playerInputs = new Horde();
 
@@ -25,6 +27,8 @@ namespace HordeProtocol.Gameplay
             playerInputs.Player.Move.canceled += OnMove;
 
             playerInputs.Player.Dash.started += OnDash;
+
+            playerInputs.Player.Fire.started += OnFire; 
         }
 
         public void OnMove(InputAction.CallbackContext context)
@@ -44,7 +48,12 @@ namespace HordeProtocol.Gameplay
 
         public void OnFire(InputAction.CallbackContext context)
         {
+            Vector2 mousePos = playerInputs.Player.Mouse.ReadValue<Vector2>();
+            Vector2 worldMousePos = Camera.main.ScreenToWorldPoint(mousePos);
 
+            Vector2 dirToTheMousePos = worldMousePos - (Vector2)transform.position;
+
+            shooting.FireIfCanTo(dirToTheMousePos);
         }
 
         private void OnEnable()
