@@ -6,7 +6,7 @@ namespace HordeProtocol.Gameplay
 
     public class PlayerInputsManager : MonoBehaviour
     {
-        private PlayerMovement movement;
+        private Movement movement;
         private Dash dash;
 
         private Horde playerInputs;
@@ -15,7 +15,7 @@ namespace HordeProtocol.Gameplay
 
         private void Awake()
         {
-            movement = GetComponent<PlayerMovement>();
+            movement = GetComponent<Movement>();
             dash = GetComponent<Dash>();
 
             playerInputs = new Horde();

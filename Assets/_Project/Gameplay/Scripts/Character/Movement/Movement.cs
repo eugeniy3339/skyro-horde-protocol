@@ -25,6 +25,8 @@ namespace HordeProtocol.Gameplay
             }
         }
 
+        [HideInInspector] public Vector2 moveDir;
+
         public event Action<Vector2> onMoveDirChanged;
 
         private void Awake()
@@ -42,7 +44,7 @@ namespace HordeProtocol.Gameplay
 
         protected virtual void Move()
         {
-
+            Move(moveDir);
         }
 
         protected void Move(Vector2 moveDir)
