@@ -11,6 +11,7 @@ namespace HordeProtocol.Gameplay
 
         private Rigidbody2D _rb;
         private float _lifetimeTimer;
+        private Shooting _shooter;
 
         private void Awake()
         {
@@ -34,8 +35,15 @@ namespace HordeProtocol.Gameplay
             _rb.linearVelocity = dir.normalized * _speed;
         }
 
+        public void SetShooter(Shooting shooter)
+        {
+            _shooter = shooter;
+        }
+
         private void OnTriggerEnter2D(Collider2D other)
         {
+            if (_shooter != null && other.gameObject == _shooter.gameObject) return;
+
             if (other.TryGetComponent<Enemy>(out _))
                 Destroy(other.gameObject);
 

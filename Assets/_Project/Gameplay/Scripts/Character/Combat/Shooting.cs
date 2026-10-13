@@ -32,6 +32,7 @@ namespace HordeProtocol.Gameplay
             if (_cooldownTimer > 0f) return;
 
             Bullet bullet = GetPooledBullet();
+            bullet.SetShooter(this);
             bullet.transform.position = transform.position;
             bullet.transform.rotation = Quaternion.identity;
             bullet.gameObject.SetActive(true);
