@@ -6,7 +6,7 @@ namespace HordeProtocol.Gameplay
     public static class GameStateHandler
     {
         private static GameState _cgs = GameState.Run;
-        public static GameState CurGameState
+        public static GameState CurState
         {
             get { return _cgs; }
             private set
@@ -23,7 +23,7 @@ namespace HordeProtocol.Gameplay
 
         public static void SetGameState(GameState state)
         {
-            CurGameState = state;
+            CurState = state;
         }
 
 

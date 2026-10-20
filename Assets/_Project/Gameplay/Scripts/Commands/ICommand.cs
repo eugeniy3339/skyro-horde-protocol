@@ -11,6 +11,5 @@ namespace HordeProtocol.Gameplay
         /// <returns>Returns true if excecuted and false if isnt</returns>
         bool Execute();
         bool CanExecute();
-        event Action<ICommand> onCommandExecuted;
     }
 }

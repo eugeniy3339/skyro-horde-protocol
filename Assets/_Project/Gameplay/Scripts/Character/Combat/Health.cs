@@ -1,6 +1,7 @@
 using NUnit.Framework.Interfaces;
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 using UnityEngine;
 using static Codice.Client.Commands.WkTree.WorkspaceTreeNode;
 using static HordeProtocol.Gameplay.Health;
@@ -23,9 +24,6 @@ namespace HordeProtocol.Gameplay
 
                 _ch = value;
                 onHealthChanged?.Invoke(value);
-
-                if (value <= 0f)
-                    Die();
             }
         }
 
@@ -56,20 +54,32 @@ namespace HordeProtocol.Gameplay
 
         public void Damage(float damage)
         {
-            DamageCommand damageCommand = new DamageCommand(damage, this);
-            TryToExecuteCommand(damageCommand);
+            TryToExecuteCommand(new HealthCommand(this, () =>
+            {
+                curHealth -= damage;
+                onDamaged?.Invoke(damage);
+                if (curHealth <= 0f)
+                    Die();
+            }));
         }
 
         public void Heal(float health)
         {
-            HealthCommand healthCommand = new HealthCommand(health, this);
-            TryToExecuteCommand(healthCommand);
+            TryToExecuteCommand(new HealthCommand(this, () =>
+            {
+                curHealth += health;
+                onHealed?.Invoke(health);
+            }));
         }
 
         public void Die()
         {
-            DieCommand dieCommand = new DieCommand(this);
-            TryToExecuteCommand(dieCommand);
+            TryToExecuteCommand(new HealthCommand(this, () =>
+            {
+                Destroy(gameObject);
+                CurState = HealthState.Dead;
+                onDied?.Invoke();
+            }));
         }
 
 
@@ -117,99 +127,27 @@ namespace HordeProtocol.Gameplay
 
 
 
-        public class DamageCommand : ICommand
-        {
-            private float _damage;
-            private Health _healthToDamage;
-
-            public event Action<ICommand> onCommandExecuted;
-
-            public bool Execute()
-            {
-                if (!CanExecute()) return false;
-                Damage(_healthToDamage, _damage);
-                onCommandExecuted?.Invoke(this);
-                return true;
-            }
-
-            private void Damage(Health healthToDamage, float damage)
-            {
-                healthToDamage.curHealth -= damage;
-            }
-
-            public bool CanExecute()
-            {
-                return _healthToDamage != null && GameStateHandler.CurGameState == GameStateHandler.GameState.Run;
-            }
-
-            public DamageCommand(float damage, Health healthToDamage)
-            {
-                _damage = damage;
-                _healthToDamage = healthToDamage;
-            }
-        }
-
         public class HealthCommand : ICommand
         {
-            private float _health;
-            private Health _healthToHeal;
-
-            public event Action<ICommand> onCommandExecuted;
-
-            public bool Execute()
-            {
-                if (!CanExecute()) return false;
-                Heal(_healthToHeal, _health);
-                onCommandExecuted?.Invoke(this);
-                return true;
-            }
-
-            private void Heal(Health healthToHealth, float health)
-            {
-                healthToHealth.curHealth += health;
-            }
-
-            public bool CanExecute()
-            {
-                return _healthToHeal != null && GameStateHandler.CurGameState == GameStateHandler.GameState.Run;
-            }
-
-            public HealthCommand(float health, Health healthToHeal)
-            {
-                _health = health;
-                _healthToHeal = healthToHeal;
-            }
-        }
-
-        public class DieCommand : ICommand
-        {
             private Health _health;
+            private Action _commandExecuteAction;
 
-            public event Action<ICommand> onCommandExecuted;
-
-            public bool Execute()
+            public virtual bool Execute()
             {
                 if (!CanExecute()) return false;
-                Die(_health);
-                onCommandExecuted?.Invoke(this);
+                _commandExecuteAction?.Invoke();
                 return true;
             }
 
-            private void Die(Health health)
+            public virtual bool CanExecute()
             {
-                Destroy(health.gameObject);
-                health.CurState = HealthState.Dead;
-                health.onDied?.Invoke();
+                return _health.CurState == HealthState.Alive && GameStateHandler.CurState == GameStateHandler.GameState.Run;
             }
 
-            public bool CanExecute()
-            {
-                return _health != null && _health.CurState != HealthState.Dead && GameStateHandler.CurGameState == GameStateHandler.GameState.Run;
-            }
-
-            public DieCommand(Health health)
+            public HealthCommand(Health health, Action commandExecuteAction)
             {
                 _health = health;
+                _commandExecuteAction = commandExecuteAction;
             }
         }
     }
