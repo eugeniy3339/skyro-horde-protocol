@@ -119,6 +119,24 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &1068748834 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9197724835941736401, guid: 58324647096d27a41a2b5214469f1b4e, type: 3}
+  m_PrefabInstance: {fileID: 4644934394298396397}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1068748844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1068748834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f24efc388b697bb48819cd1b2b572e15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: HordeProtocol.Gameplay::HordeProtocol.Gameplay.Health
+  maxHealth: 100
 --- !u!1 &1427610775 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3939971802650502347, guid: 4a604121cb7541c4088edb7a713591d6, type: 3}
@@ -138,6 +156,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: HordeProtocol.Gameplay::HordeProtocol.Gameplay.Shooting
   _bulletPrefab: {fileID: 8571705800728946048, guid: 693bbeed4ab16ca4aaec496cb6e13eab, type: 3}
   _shootCooldown: 0.25
+--- !u!114 &1427610789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1427610775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c2bebe1b2697424699674c0c2bc2818, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: HordeProtocol.Gameplay::HordeProtocol.Gameplay.PlayerHealth
+  maxHealth: 100
 --- !u!1 &1528327354
 GameObject:
   m_ObjectHideFlags: 0
@@ -340,6 +371,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6843577381060986257, guid: 58324647096d27a41a2b5214469f1b4e, type: 3}
+      propertyPath: _damage
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 7937610705333133858, guid: 58324647096d27a41a2b5214469f1b4e, type: 3}
       propertyPath: m_Constraints
       value: 4
@@ -351,7 +386,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9197724835941736401, guid: 58324647096d27a41a2b5214469f1b4e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1068748844}
   m_SourcePrefab: {fileID: 100100000, guid: 58324647096d27a41a2b5214469f1b4e, type: 3}
 --- !u!1001 &7001510377268745828
 PrefabInstance:
@@ -412,6 +450,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3939971802650502347, guid: 4a604121cb7541c4088edb7a713591d6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1427610788}
+    - targetCorrespondingSourceObject: {fileID: 3939971802650502347, guid: 4a604121cb7541c4088edb7a713591d6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1427610789}
   m_SourcePrefab: {fileID: 100100000, guid: 4a604121cb7541c4088edb7a713591d6, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
