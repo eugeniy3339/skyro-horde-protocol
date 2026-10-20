@@ -54,32 +54,38 @@ namespace HordeProtocol.Gameplay
 
         public void Damage(float damage)
         {
-            TryToExecuteCommand(new HealthCommand(this, () =>
-            {
-                curHealth -= damage;
-                onDamaged?.Invoke(damage);
-                if (curHealth <= 0f)
-                    Die();
-            }));
+            TryToExecuteCommand(new HealthCommand<float>(this, damage, DamageAction));
+        }
+
+        protected virtual void DamageAction(float damage)
+        {
+            curHealth -= damage;
+            onDamaged?.Invoke(damage);
+            if (curHealth <= 0f)
+                Die();
         }
 
         public void Heal(float health)
         {
-            TryToExecuteCommand(new HealthCommand(this, () =>
-            {
-                curHealth += health;
-                onHealed?.Invoke(health);
-            }));
+            TryToExecuteCommand(new HealthCommand<float>(this, health, HealAction));
+        }
+
+        protected virtual void HealAction(float health)
+        {
+            curHealth += health;
+            onHealed?.Invoke(health);
         }
 
         public void Die()
         {
-            TryToExecuteCommand(new HealthCommand(this, () =>
-            {
-                Destroy(gameObject);
-                CurState = HealthState.Dead;
-                onDied?.Invoke();
-            }));
+            TryToExecuteCommand(new HealthCommand(this, DieAction));
+        }
+
+        protected virtual void DieAction()
+        {
+            Destroy(gameObject);
+            CurState = HealthState.Dead;
+            onDied?.Invoke();
         }
 
 
@@ -129,7 +135,7 @@ namespace HordeProtocol.Gameplay
 
         public class HealthCommand : ICommand
         {
-            private Health _health;
+            protected Health _health;
             private Action _commandExecuteAction;
 
             public virtual bool Execute()
@@ -147,6 +153,25 @@ namespace HordeProtocol.Gameplay
             public HealthCommand(Health health, Action commandExecuteAction)
             {
                 _health = health;
+                _commandExecuteAction = commandExecuteAction;
+            }
+        }
+
+        public class HealthCommand<T> : HealthCommand
+        {
+            private T _value;
+            private Action<T> _commandExecuteAction;
+
+            public override bool Execute()
+            {
+                if (!CanExecute()) return false;
+                _commandExecuteAction?.Invoke(_value);
+                return true;
+            }
+
+            public HealthCommand(Health health, T value, Action<T> commandExecuteAction) : base(health, null)
+            {
+                _value = value;
                 _commandExecuteAction = commandExecuteAction;
             }
         }
