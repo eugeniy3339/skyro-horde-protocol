@@ -1,6 +1,6 @@
 002
 
-Status: Awaiting Approval
+Status: Approved
 
 Context:
 AI doesnt have instructions how it must work. It can simply kill the project, because it wouldnt know how it need to do its task. Programmers also doesnt have instructions of working with AI, if they arent expirianced they can bring the project down too.
