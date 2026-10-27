@@ -8,6 +8,7 @@ using static HordeProtocol.Gameplay.Health;
 
 namespace HordeProtocol.Gameplay
 {
+    [DisallowMultipleComponent]
     public class Health : MonoBehaviour
     {
         private List<ICommand> commandsStack = new List<ICommand>();
@@ -27,28 +28,16 @@ namespace HordeProtocol.Gameplay
             }
         }
 
-        private HealthState _cs = HealthState.Alive;
+        private HealthState curState = HealthState.Alive;
         public HealthState CurState
         {
-            get { return _cs; }
-            private set
-            {
-                _cs = value;
-            }
+            get { return curState; }
         }
 
         public event Action<float> onHealthChanged;
         public event Action<float> onDamaged;
         public event Action<float> onHealed;
         public event Action onDied;
-
-
-
-        protected virtual void Awake()
-        {
-            CurState = HealthState.Alive;
-            curHealth = maxHealth;
-        }
 
 
 
@@ -83,8 +72,8 @@ namespace HordeProtocol.Gameplay
 
         protected virtual void DieAction()
         {
-            Destroy(gameObject);
-            CurState = HealthState.Dead;
+            gameObject.SetActive(false);
+            curState = HealthState.Dead;
             onDied?.Invoke();
         }
 
@@ -115,6 +104,9 @@ namespace HordeProtocol.Gameplay
 
         private void OnEnable()
         {
+            curState = HealthState.Alive;
+            curHealth = maxHealth;
+
             GameStateHandler.onGameStateChanged += OnGameStateChanged;
         }
 

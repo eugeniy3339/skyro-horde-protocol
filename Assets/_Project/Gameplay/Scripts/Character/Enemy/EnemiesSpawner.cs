@@ -21,20 +21,26 @@ namespace HordeProtocol.Gameplay
         [SerializeField] private float spawnCooldown = 1f;
         private float curSpawnCooldown;
 
+        private ObjectPull enemiesPull;
+
         private void Awake()
         {
             spawnPositions = GetSpawnPositions();
-
             curSpawnCooldown = spawnCooldown;
+
+            enemiesPull = ObjectPullsManager.GetPull(enemyPrefab);
         }
 
         private void Update()
         {
-            if(curSpawnCooldown > 0f)
+            if (curSpawnCooldown > 0f)
             {
                 curSpawnCooldown -= Time.deltaTime;
                 if (curSpawnCooldown <= 0f)
+                {
                     SpawnEnemy();
+                    curSpawnCooldown = spawnCooldown;
+                }
             }
         }
 
@@ -46,6 +52,9 @@ namespace HordeProtocol.Gameplay
         private void SpawnEnemy(GameObject enemyPrefab)
         {
             Vector2 spawnPos = GetRandomSpawnPos();
+            var enemy = enemiesPull.GetNextObject();
+            enemy.SetActive(true);
+            enemy.transform.position = spawnPos;
         }
 
         private Vector2 GetRandomSpawnPos()

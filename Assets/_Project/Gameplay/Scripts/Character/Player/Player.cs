@@ -6,9 +6,14 @@ namespace HordeProtocol.Gameplay
     {
         public static Player Instance { get; private set; }
 
-        private void Awake()
+        private void OnEnable()
         {
             Player.Instance = this;
+        }
+
+        private void OnDisable()
+        {
+            Player.Instance = null;
         }
     }
 }
