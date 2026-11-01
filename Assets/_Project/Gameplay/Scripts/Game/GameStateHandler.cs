@@ -5,7 +5,7 @@ namespace HordeProtocol.Gameplay
 {
     public static class GameStateHandler
     {
-        private static GameState _cgs = GameState.Run;
+        private static GameState _cgs = GameState.Running;
         public static GameState CurState
         {
             get { return _cgs; }
@@ -30,7 +30,7 @@ namespace HordeProtocol.Gameplay
 
         public enum GameState
         {
-            Run,
+            Running,
             Pause,
             GameOver
         }

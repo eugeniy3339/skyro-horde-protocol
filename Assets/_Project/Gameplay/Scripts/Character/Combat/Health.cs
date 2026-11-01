@@ -98,7 +98,7 @@ namespace HordeProtocol.Gameplay
 
         private void OnGameStateChanged(GameStateHandler.GameState gameState)
         {
-            if (gameState == GameStateHandler.GameState.Run)
+            if (gameState == GameStateHandler.GameState.Running)
                 TryToExcecuteStackedCommands();
         }
 
@@ -139,7 +139,7 @@ namespace HordeProtocol.Gameplay
 
             public virtual bool CanExecute()
             {
-                return _health.CurState == HealthState.Alive && GameStateHandler.CurState == GameStateHandler.GameState.Run;
+                return _health.CurState == HealthState.Alive && GameStateHandler.CurState == GameStateHandler.GameState.Running;
             }
 
             public HealthCommand(Health health, Action commandExecuteAction)

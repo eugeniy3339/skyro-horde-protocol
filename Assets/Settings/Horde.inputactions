@@ -34,6 +34,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Mouse",
+                    "type": "PassThrough",
+                    "id": "1096bdb3-aa53-449e-bc8b-2ea267a1d44a",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Pause",
                     "type": "Button",
                     "id": "a7c0e2d1-4b8f-4e6a-9c31-0f2d8b7a5e14",
@@ -43,10 +52,10 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Mouse",
-                    "type": "PassThrough",
-                    "id": "1096bdb3-aa53-449e-bc8b-2ea267a1d44a",
-                    "expectedControlType": "Vector2",
+                    "name": "Retry",
+                    "type": "Button",
+                    "id": "be338b06-c61f-4d66-af9a-5e801ed55bce",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -292,6 +301,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Mouse",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "19858026-59d3-45a7-b4c5-1425aa7876ce",
+                    "path": "<Keyboard>/u",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Retry",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
