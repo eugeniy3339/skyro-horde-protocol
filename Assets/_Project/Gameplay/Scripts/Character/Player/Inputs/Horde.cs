@@ -127,24 +127,6 @@ public partial class @Horde: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Pause"",
-                    ""type"": ""Button"",
-                    ""id"": ""a7c0e2d1-4b8f-4e6a-9c31-0f2d8b7a5e14"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Retry"",
-                    ""type"": ""Button"",
-                    ""id"": ""be338b06-c61f-4d66-af9a-5e801ed55bce"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -348,28 +330,6 @@ public partial class @Horde: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""c1d2e3f4-1111-4aaa-8bbb-222233334444"",
-                    ""path"": ""<Keyboard>/escape"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Pause"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""d2e3f4a5-2222-4bbb-9ccc-333344445555"",
-                    ""path"": ""<Gamepad>/start"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Pause"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""896370f4-2e8f-42e2-aab3-04806ffaf23d"",
                     ""path"": ""<Keyboard>/shift"",
                     ""interactions"": """",
@@ -389,10 +349,58 @@ public partial class @Horde: IInputActionCollection2, IDisposable
                     ""action"": ""Mouse"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""GameState"",
+            ""id"": ""16af191b-5cef-4cfc-9266-302b0a4586bc"",
+            ""actions"": [
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""151f00bd-f3d1-4ec6-bc66-dcd401048183"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Retry"",
+                    ""type"": ""Button"",
+                    ""id"": ""408b26c3-3d58-4efa-9f5f-c814b39ac044"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""4bea10ae-d718-4681-9b2f-313a2e2d3346"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""19858026-59d3-45a7-b4c5-1425aa7876ce"",
+                    ""id"": ""a73ffd82-7f9b-47c3-bda3-a6de283b4656"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""11f95c1a-f142-45e3-9aa2-6ed5e22f4804"",
                     ""path"": ""<Keyboard>/u"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -989,8 +997,10 @@ public partial class @Horde: IInputActionCollection2, IDisposable
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
         m_Player_Mouse = m_Player.FindAction("Mouse", throwIfNotFound: true);
-        m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
-        m_Player_Retry = m_Player.FindAction("Retry", throwIfNotFound: true);
+        // GameState
+        m_GameState = asset.FindActionMap("GameState", throwIfNotFound: true);
+        m_GameState_Pause = m_GameState.FindAction("Pause", throwIfNotFound: true);
+        m_GameState_Retry = m_GameState.FindAction("Retry", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1008,6 +1018,7 @@ public partial class @Horde: IInputActionCollection2, IDisposable
     ~@Horde()
     {
         UnityEngine.Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, Horde.Player.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_GameState.enabled, "This will cause a leak and performance issues, Horde.GameState.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, Horde.UI.Disable() has not been called.");
     }
 
@@ -1088,8 +1099,6 @@ public partial class @Horde: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Dash;
     private readonly InputAction m_Player_Fire;
     private readonly InputAction m_Player_Mouse;
-    private readonly InputAction m_Player_Pause;
-    private readonly InputAction m_Player_Retry;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1117,14 +1126,6 @@ public partial class @Horde: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Mouse".
         /// </summary>
         public InputAction @Mouse => m_Wrapper.m_Player_Mouse;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/Pause".
-        /// </summary>
-        public InputAction @Pause => m_Wrapper.m_Player_Pause;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/Retry".
-        /// </summary>
-        public InputAction @Retry => m_Wrapper.m_Player_Retry;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1163,12 +1164,6 @@ public partial class @Horde: IInputActionCollection2, IDisposable
             @Mouse.started += instance.OnMouse;
             @Mouse.performed += instance.OnMouse;
             @Mouse.canceled += instance.OnMouse;
-            @Pause.started += instance.OnPause;
-            @Pause.performed += instance.OnPause;
-            @Pause.canceled += instance.OnPause;
-            @Retry.started += instance.OnRetry;
-            @Retry.performed += instance.OnRetry;
-            @Retry.canceled += instance.OnRetry;
         }
 
         /// <summary>
@@ -1192,12 +1187,6 @@ public partial class @Horde: IInputActionCollection2, IDisposable
             @Mouse.started -= instance.OnMouse;
             @Mouse.performed -= instance.OnMouse;
             @Mouse.canceled -= instance.OnMouse;
-            @Pause.started -= instance.OnPause;
-            @Pause.performed -= instance.OnPause;
-            @Pause.canceled -= instance.OnPause;
-            @Retry.started -= instance.OnRetry;
-            @Retry.performed -= instance.OnRetry;
-            @Retry.canceled -= instance.OnRetry;
         }
 
         /// <summary>
@@ -1231,6 +1220,113 @@ public partial class @Horde: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="PlayerActions" /> instance referencing this action map.
     /// </summary>
     public PlayerActions @Player => new PlayerActions(this);
+
+    // GameState
+    private readonly InputActionMap m_GameState;
+    private List<IGameStateActions> m_GameStateActionsCallbackInterfaces = new List<IGameStateActions>();
+    private readonly InputAction m_GameState_Pause;
+    private readonly InputAction m_GameState_Retry;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "GameState".
+    /// </summary>
+    public struct GameStateActions
+    {
+        private @Horde m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public GameStateActions(@Horde wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "GameState/Pause".
+        /// </summary>
+        public InputAction @Pause => m_Wrapper.m_GameState_Pause;
+        /// <summary>
+        /// Provides access to the underlying input action "GameState/Retry".
+        /// </summary>
+        public InputAction @Retry => m_Wrapper.m_GameState_Retry;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_GameState; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="GameStateActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(GameStateActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="GameStateActions" />
+        public void AddCallbacks(IGameStateActions instance)
+        {
+            if (instance == null || m_Wrapper.m_GameStateActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_GameStateActionsCallbackInterfaces.Add(instance);
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
+            @Retry.started += instance.OnRetry;
+            @Retry.performed += instance.OnRetry;
+            @Retry.canceled += instance.OnRetry;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="GameStateActions" />
+        private void UnregisterCallbacks(IGameStateActions instance)
+        {
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
+            @Retry.started -= instance.OnRetry;
+            @Retry.performed -= instance.OnRetry;
+            @Retry.canceled -= instance.OnRetry;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="GameStateActions.UnregisterCallbacks(IGameStateActions)" />.
+        /// </summary>
+        /// <seealso cref="GameStateActions.UnregisterCallbacks(IGameStateActions)" />
+        public void RemoveCallbacks(IGameStateActions instance)
+        {
+            if (m_Wrapper.m_GameStateActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="GameStateActions.AddCallbacks(IGameStateActions)" />
+        /// <seealso cref="GameStateActions.RemoveCallbacks(IGameStateActions)" />
+        /// <seealso cref="GameStateActions.UnregisterCallbacks(IGameStateActions)" />
+        public void SetCallbacks(IGameStateActions instance)
+        {
+            foreach (var item in m_Wrapper.m_GameStateActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_GameStateActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="GameStateActions" /> instance referencing this action map.
+    /// </summary>
+    public GameStateActions @GameState => new GameStateActions(this);
 
     // UI
     private readonly InputActionMap m_UI;
@@ -1526,6 +1622,14 @@ public partial class @Horde: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMouse(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "GameState" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="GameStateActions.AddCallbacks(IGameStateActions)" />
+    /// <seealso cref="GameStateActions.RemoveCallbacks(IGameStateActions)" />
+    public interface IGameStateActions
+    {
         /// <summary>
         /// Method invoked when associated input action "Pause" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>

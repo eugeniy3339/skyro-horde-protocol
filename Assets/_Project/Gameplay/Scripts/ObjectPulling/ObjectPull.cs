@@ -15,7 +15,9 @@ namespace HordeProtocol.Gameplay
             for(int i = 0; i<count; i++)
             {
                 var obj = pull.Dequeue();
-                if(!obj.gameObject.activeSelf)
+                if (obj == null)
+                    continue;
+                if (!obj.gameObject.activeSelf)
                 {
                     pull.Enqueue(obj);
                     return obj;

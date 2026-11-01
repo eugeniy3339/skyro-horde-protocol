@@ -34,12 +34,14 @@ namespace HordeProtocol.Gameplay
             playerInputs.Player.Fire.started += OnFire; 
             playerInputs.Player.Fire.canceled += OnFire;
 
-            playerInputs.Player.Pause.started += OnPause;
+            playerInputs.GameState.Pause.started += OnPause;
+            playerInputs.GameState.Retry.started += OnRestart;
+            playerInputs.GameState.Enable();
         }
 
         private void OnMove(InputAction.CallbackContext context)
         {
-            if (GameStateHandler.CurState != GameStateHandler.GameState.Running) return;
+            if (GameStateHandler.CurState == GameStateHandler.GameState.GameOver) return;
 
             Vector2 input = context.ReadValue<Vector2>();
             SetMoveInputs(input);
@@ -62,7 +64,7 @@ namespace HordeProtocol.Gameplay
 
         private void OnFire(InputAction.CallbackContext context)
         {
-            if(GameStateHandler.CurState != GameStateHandler.GameState.Running) return;
+            if(GameStateHandler.CurState == GameStateHandler.GameState.GameOver) return;
             if (context.performed) return;
 
             SetFireInput(context.started);
@@ -99,27 +101,40 @@ namespace HordeProtocol.Gameplay
             shooting.FireIfCanTo(dirToTheMousePos);
         }
 
-        public void OnPause(InputAction.CallbackContext context)
+        private void OnPause(InputAction.CallbackContext context)
         {
             if (GameStateHandler.CurState == GameStateHandler.GameState.GameOver) return;
             if (!context.started) return;
 
             PauseManager.PauseUnpause();
-            SetMoveInputs(Vector2.zero);
-            SetFireInput(false);
+        }
+
+        private void OnPauseChanged(bool pause)
+        {
+            if (pause) return;
+
+            SetFireInput(isShooting);
+        }
+
+        private void OnRestart(InputAction.CallbackContext context)
+        {
+            if (!context.started) return;
+            GameManager.Instance?.RestartGame();
         }
 
 
 
         private void OnEnable()
         {
-            playerInputs.Enable();
+            playerInputs.Player.Enable();
+            PauseManager.onPauseChanged += OnPauseChanged;
         }
 
         private void OnDisable()
         {
-            playerInputs.Disable();
+            playerInputs.Player.Disable();
             shooting.onShootCooldown -= OnShootCooldown;
+            PauseManager.onPauseChanged -= OnPauseChanged;
         }
 
         private void OnDestroy()
@@ -133,7 +148,9 @@ namespace HordeProtocol.Gameplay
             playerInputs.Player.Fire.started -= OnFire;
             playerInputs.Player.Fire.canceled -= OnFire;
 
-            playerInputs.Player.Pause.started -= OnPause;
+            playerInputs.GameState.Pause.started -= OnPause;
+            playerInputs.GameState.Retry.started -= OnRestart;
+            playerInputs.GameState.Disable();
         }
     }
 }

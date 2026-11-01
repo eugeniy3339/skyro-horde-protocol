@@ -41,24 +41,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "Pause",
-                    "type": "Button",
-                    "id": "a7c0e2d1-4b8f-4e6a-9c31-0f2d8b7a5e14",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Retry",
-                    "type": "Button",
-                    "id": "be338b06-c61f-4d66-af9a-5e801ed55bce",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -262,28 +244,6 @@
                 },
                 {
                     "name": "",
-                    "id": "c1d2e3f4-1111-4aaa-8bbb-222233334444",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Pause",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "d2e3f4a5-2222-4bbb-9ccc-333344445555",
-                    "path": "<Gamepad>/start",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Pause",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "896370f4-2e8f-42e2-aab3-04806ffaf23d",
                     "path": "<Keyboard>/shift",
                     "interactions": "",
@@ -303,10 +263,58 @@
                     "action": "Mouse",
                     "isComposite": false,
                     "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "GameState",
+            "id": "16af191b-5cef-4cfc-9266-302b0a4586bc",
+            "actions": [
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "151f00bd-f3d1-4ec6-bc66-dcd401048183",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Retry",
+                    "type": "Button",
+                    "id": "408b26c3-3d58-4efa-9f5f-c814b39ac044",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "4bea10ae-d718-4681-9b2f-313a2e2d3346",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "19858026-59d3-45a7-b4c5-1425aa7876ce",
+                    "id": "a73ffd82-7f9b-47c3-bda3-a6de283b4656",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "11f95c1a-f142-45e3-9aa2-6ed5e22f4804",
                     "path": "<Keyboard>/u",
                     "interactions": "",
                     "processors": "",

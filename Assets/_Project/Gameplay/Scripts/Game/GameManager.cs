@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace HordeProtocol.Gameplay
 {
@@ -19,6 +20,13 @@ namespace HordeProtocol.Gameplay
             onGameOver?.Invoke();
             GameStateHandler.SetGameState(GameStateHandler.GameState.GameOver);
         }
+
+        public void RestartGame()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
+
 
         private void OnEnable()
         {
