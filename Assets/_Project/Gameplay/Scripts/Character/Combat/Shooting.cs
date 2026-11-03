@@ -10,14 +10,14 @@ namespace HordeProtocol.Gameplay
         [SerializeField] private Bullet _bulletPrefab;
         [SerializeField] private float _shootCooldown = 0.25f;
 
-        private ObjectPull _bulletPool;
+        private ObjectPull<Bullet> _bulletPool;
         private float _cooldownTimer;
 
         public event Action onShootCooldown;
 
         private void Awake()
         {
-            _bulletPool = ObjectPullsManager.GetPull(_bulletPrefab.gameObject);
+            _bulletPool = ObjectPullsManager.GetPull<Bullet>(_bulletPrefab.gameObject);
         }
 
         private void Update()
@@ -54,7 +54,7 @@ namespace HordeProtocol.Gameplay
 
         private Bullet GetPooledBullet()
         {
-            return _bulletPool.GetNextObject().GetComponent<Bullet>();
+            return _bulletPool.GetNextObject();
         }
     }
 }

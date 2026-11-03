@@ -4,7 +4,9 @@ using UnityEngine;
 
 namespace HordeProtocol.Gameplay
 {
-    public class ObjectPull<T> where T : MonoBehaviour
+    public abstract class ObjectPull { }
+
+    public class ObjectPull<T> : ObjectPull where T : MonoBehaviour
     {
         private T objectToSpawn;
         private Queue<T> pull;
