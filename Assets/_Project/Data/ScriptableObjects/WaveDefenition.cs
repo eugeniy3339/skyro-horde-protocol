@@ -8,20 +8,20 @@ namespace HordeProtocol.Data
     [CreateAssetMenu(fileName = "newWaveDefenition", menuName = "Enemies/Wave Definition")]
     public class WaveDefenition : ScriptableObject
     {
-        [SerializeField] private WaveEnemy[] enemiesToSpawn;
-        public IReadOnlyList<WaveEnemy> EnemiesToSpawn => enemiesToSpawn;
+        [SerializeField] private WaveEnemyDefenition[] enemiesToSpawn;
+        public IReadOnlyList<WaveEnemyDefenition> EnemiesToSpawn => enemiesToSpawn;
         [SerializeField] private int waveNumber;
         public int WaveNumber => waveNumber;
 
         [Serializable]
-        public class WaveEnemy
+        public class WaveEnemyDefenition
         {
             [SerializeField] private EnemyDefenition enemyDefenition;
             public EnemyDefenition EnemyDefenition { get { return enemyDefenition; } }
             [SerializeField] private int count;
             public int Count { get { return count; } }
 
-            public WaveEnemy(EnemyDefenition enemyDefenition, int count)
+            public WaveEnemyDefenition(EnemyDefenition enemyDefenition, int count)
             {
                 this.enemyDefenition = enemyDefenition;
                 this.count = count;

@@ -18,42 +18,29 @@ namespace HordeProtocol.Gameplay
             return positions;
         }
 
-        [SerializeField] private EnemyDefenition enemyDefenition;
-        [SerializeField] private float spawnCooldown = 1f;
-        private float curSpawnCooldown;
-
-        private EnemiesFactory enemiesFactory;
+        [SerializeField] private WaveDefenition _testWaveDefenition;
 
         private void Awake()
         {
             spawnPositions = GetSpawnPositions();
-            curSpawnCooldown = spawnCooldown;
-
-            enemiesFactory = new EnemiesFactory(enemyDefenition);
+            SpawnWave(_testWaveDefenition);
         }
 
-        private void Update()
+        private void SpawnWave(WaveDefenition waveDefenition)
         {
-            if (curSpawnCooldown > 0f)
+            foreach (var waveEnemies in waveDefenition.EnemiesToSpawn)
             {
-                curSpawnCooldown -= Time.deltaTime;
-                if (curSpawnCooldown <= 0f)
-                {
-                    SpawnEnemy();
-                    curSpawnCooldown = spawnCooldown;
-                }
+                SpawnWaveEnemies(waveEnemies);
             }
         }
 
-        private void SpawnEnemy()
+        private void SpawnWaveEnemies(WaveDefenition.WaveEnemyDefenition waveEnemies)
         {
-            SpawnEnemy(enemyDefenition);
-        }
-
-        private void SpawnEnemy(EnemyDefenition enemyDefenition)
-        {
-            Vector2 spawnPos = GetRandomSpawnPos();
-            enemiesFactory.SpawnEnemy(spawnPos);
+            EnemiesFactory enemiesFactory = new EnemiesFactory(waveEnemies.EnemyDefenition);
+            for (int i = 0; i < waveEnemies.Count; i++)
+            {
+                enemiesFactory.SpawnEnemy(GetRandomSpawnPos());
+            }
         }
 
         private Vector2 GetRandomSpawnPos()
