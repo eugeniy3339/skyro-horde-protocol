@@ -1,3 +1,4 @@
+using HordeProtocol.Data;
 using UnityEngine;
 
 namespace HordeProtocol.Gameplay
@@ -17,18 +18,18 @@ namespace HordeProtocol.Gameplay
             return positions;
         }
 
-        [SerializeField] private GameObject enemyPrefab;
+        [SerializeField] private EnemyDefenition enemyDefenition;
         [SerializeField] private float spawnCooldown = 1f;
         private float curSpawnCooldown;
 
-        private ObjectPull enemiesPull;
+        private EnemiesFactory enemiesFactory;
 
         private void Awake()
         {
             spawnPositions = GetSpawnPositions();
             curSpawnCooldown = spawnCooldown;
 
-            enemiesPull = ObjectPullsManager.GetPull(enemyPrefab);
+            enemiesFactory = new EnemiesFactory(enemyDefenition);
         }
 
         private void Update()
@@ -46,15 +47,13 @@ namespace HordeProtocol.Gameplay
 
         private void SpawnEnemy()
         {
-            SpawnEnemy(enemyPrefab);
+            SpawnEnemy(enemyDefenition);
         }
 
-        private void SpawnEnemy(GameObject enemyPrefab)
+        private void SpawnEnemy(EnemyDefenition enemyDefenition)
         {
             Vector2 spawnPos = GetRandomSpawnPos();
-            var enemy = enemiesPull.GetNextObject();
-            enemy.SetActive(true);
-            enemy.transform.position = spawnPos;
+            enemiesFactory.SpawnEnemy(spawnPos);
         }
 
         private Vector2 GetRandomSpawnPos()

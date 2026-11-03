@@ -260,7 +260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 113a742a5e04e9f4a989931413d803af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: HordeProtocol.Gameplay::HordeProtocol.Gameplay.EnemiesSpawner
-  enemyPrefab: {fileID: 9197724835941736401, guid: 58324647096d27a41a2b5214469f1b4e, type: 3}
+  enemyDefenition: {fileID: 11400000, guid: e937d433f861a1b4b9b1803c39f1303f, type: 2}
   spawnCooldown: 1
 --- !u!4 &311249453
 Transform:
