@@ -8,6 +8,7 @@ namespace HordeProtocol.Gameplay
         [Header("Bullet Settings")]
         [SerializeField] private float _speed = 15f;
         [SerializeField] private float _maxLifetime = 3f;
+        [SerializeField] private float _damage = 20f;
 
         private Rigidbody2D _rb;
         private float _lifetimeTimer;
@@ -45,8 +46,8 @@ namespace HordeProtocol.Gameplay
         {
             if (_shooter != null && other.gameObject == _shooter.gameObject) return;
 
-            if (other.TryGetComponent<Enemy>(out _))
-                Destroy(other.gameObject);
+            if (other.TryGetComponent<Health>(out Health health))
+                health.Damage(_damage);
 
             Deactivate();
         }

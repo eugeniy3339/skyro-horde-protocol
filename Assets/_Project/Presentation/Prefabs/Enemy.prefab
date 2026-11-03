@@ -140,6 +140,7 @@ GameObject:
   - component: {fileID: 8631608443410280940}
   - component: {fileID: 6355785182901806110}
   - component: {fileID: 3886596861110633472}
+  - component: {fileID: 3239905032264537944}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -189,7 +190,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!70 &7236768043052307128
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -239,6 +240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f685001dc7177e045911b8c9885ea312, type: 3}
   m_Name: 
   m_EditorClassIdentifier: HordeProtocol.Gameplay::HordeProtocol.Gameplay.Enemy
+  _damage: 100
 --- !u!114 &1342997254252660189
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -337,3 +339,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac59c3bdae9eae848aee97544729bbb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: HordeProtocol.Presentation::HordeProtocol.Presentation.CharacterVisualsHandler
+--- !u!114 &3239905032264537944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9197724835941736401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f24efc388b697bb48819cd1b2b572e15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: HordeProtocol.Gameplay::HordeProtocol.Gameplay.Health
+  maxHealth: 100

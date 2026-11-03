@@ -3,7 +3,8 @@
     "rootNamespace": "HordeProtocol.Presentation",
     "references": [
         "HordeProtocol.Gameplay",
-        "HordeProtocol.Data"
+        "HordeProtocol.Data",
+        "Unity.TextMeshPro"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
