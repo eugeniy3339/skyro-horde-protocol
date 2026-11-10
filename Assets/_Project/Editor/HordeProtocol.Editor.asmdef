@@ -3,7 +3,8 @@
     "rootNamespace": "HordeProtocol.Editor",
     "references": [
         "HordeProtocol.Gameplay",
-        "HordeProtocol.Data"
+        "HordeProtocol.Data",
+        ""
     ],
     "includePlatforms": [
         "Editor"
