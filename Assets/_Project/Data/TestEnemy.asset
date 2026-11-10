@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68fc6b424b0b9ca4698074eed3db8216, type: 3}
+  m_Name: TestEnemy
+  m_EditorClassIdentifier: HordeProtocol.Data::HordeProtocol.Data.EnemyDefenition
+  name: FirstEnemy
+  enemyPrefab: {fileID: 9197724835941736401, guid: 58324647096d27a41a2b5214469f1b4e, type: 3}

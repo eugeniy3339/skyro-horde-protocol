@@ -7,6 +7,8 @@ namespace HordeProtocol.Gameplay
     {
         private AIMovement _aiMovement;
 
+        [SerializeField] private float _damage = 100f;
+
         private void Awake()
         {
             _aiMovement = GetComponent<AIMovement>();
@@ -20,8 +22,8 @@ namespace HordeProtocol.Gameplay
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.TryGetComponent<Player>(out _))
-                Destroy(other.gameObject);
+            if (other.TryGetComponent<PlayerHealth>(out PlayerHealth playerHealth))
+                playerHealth.Damage(_damage);
         }
     }
 }
