@@ -15,4 +15,6 @@ MonoBehaviour:
   enemiesToSpawn:
   - enemyDefenition: {fileID: 11400000, guid: e937d433f861a1b4b9b1803c39f1303f, type: 2}
     count: 10
+  - enemyDefenition: {fileID: 0}
+    count: 0
   waveNumber: 1
