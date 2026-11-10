@@ -13,12 +13,15 @@ namespace HordeProtocol.Gameplay
             objectPulls.Add(pullPrefab, pull);
         }
 
-        public static ObjectPull GetPull(GameObject pullPrefab)
+        public static ObjectPull<T> GetPull<T>(GameObject pullPrefab) where T : MonoBehaviour
         {
-            if(objectPulls.ContainsKey(pullPrefab))
-                return objectPulls[pullPrefab];
+            if(objectPulls.TryGetValue(pullPrefab, out var pull))
+            {
+                if(pull is ObjectPull<T> typedPull)
+                    return typedPull;
+            }
 
-            var newPull = new ObjectPull(pullPrefab);
+            var newPull = new ObjectPull<T>(pullPrefab.GetComponent<T>());
             AddPull(pullPrefab, newPull);
             return newPull;
         }

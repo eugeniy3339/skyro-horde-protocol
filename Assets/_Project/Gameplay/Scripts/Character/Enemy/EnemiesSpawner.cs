@@ -1,3 +1,4 @@
+using HordeProtocol.Data;
 using UnityEngine;
 
 namespace HordeProtocol.Gameplay
@@ -17,44 +18,29 @@ namespace HordeProtocol.Gameplay
             return positions;
         }
 
-        [SerializeField] private GameObject enemyPrefab;
-        [SerializeField] private float spawnCooldown = 1f;
-        private float curSpawnCooldown;
-
-        private ObjectPull enemiesPull;
+        [SerializeField] private WaveDefenition _testWaveDefenition;
 
         private void Awake()
         {
             spawnPositions = GetSpawnPositions();
-            curSpawnCooldown = spawnCooldown;
-
-            enemiesPull = ObjectPullsManager.GetPull(enemyPrefab);
+            SpawnWave(_testWaveDefenition);
         }
 
-        private void Update()
+        private void SpawnWave(WaveDefenition waveDefenition)
         {
-            if (curSpawnCooldown > 0f)
+            foreach (var waveEnemies in waveDefenition.EnemiesToSpawn)
             {
-                curSpawnCooldown -= Time.deltaTime;
-                if (curSpawnCooldown <= 0f)
-                {
-                    SpawnEnemy();
-                    curSpawnCooldown = spawnCooldown;
-                }
+                SpawnWaveEnemies(waveEnemies);
             }
         }
 
-        private void SpawnEnemy()
+        private void SpawnWaveEnemies(WaveDefenition.WaveEnemyDefenition waveEnemies)
         {
-            SpawnEnemy(enemyPrefab);
-        }
-
-        private void SpawnEnemy(GameObject enemyPrefab)
-        {
-            Vector2 spawnPos = GetRandomSpawnPos();
-            var enemy = enemiesPull.GetNextObject();
-            enemy.SetActive(true);
-            enemy.transform.position = spawnPos;
+            EnemiesFactory enemiesFactory = new EnemiesFactory(waveEnemies.EnemyDefenition);
+            for (int i = 0; i < waveEnemies.Count; i++)
+            {
+                enemiesFactory.SpawnEnemy(GetRandomSpawnPos());
+            }
         }
 
         private Vector2 GetRandomSpawnPos()

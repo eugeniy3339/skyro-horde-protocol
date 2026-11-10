@@ -4,12 +4,14 @@ using UnityEngine;
 
 namespace HordeProtocol.Gameplay
 {
-    public class ObjectPull
-    {
-        private GameObject objectToSpawn;
-        private Queue<GameObject> pull;
+    public abstract class ObjectPull { }
 
-        public GameObject GetNextObject()
+    public class ObjectPull<T> : ObjectPull where T : MonoBehaviour
+    {
+        private T objectToSpawn;
+        private Queue<T> pull;
+
+        public T GetNextObject()
         {
             int count = pull.Count;
             for(int i = 0; i<count; i++)
@@ -29,16 +31,16 @@ namespace HordeProtocol.Gameplay
             return newObject;
         }
 
-        private GameObject CreateNewObject()
+        private T CreateNewObject()
         {
-            GameObject spawnedobject = GameObject.Instantiate(objectToSpawn.gameObject);
+            T spawnedobject = GameObject.Instantiate(objectToSpawn);
             pull.Enqueue(spawnedobject);
             return spawnedobject;
         }
 
-        public ObjectPull(GameObject objectToSpawnPrefab)
+        public ObjectPull(T objectToSpawnPrefab)
         {
-            pull = new Queue<GameObject>();
+            pull = new Queue<T>();
             objectToSpawn = objectToSpawnPrefab;
         }
     }
