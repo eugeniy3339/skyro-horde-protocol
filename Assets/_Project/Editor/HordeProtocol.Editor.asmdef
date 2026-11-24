@@ -4,7 +4,7 @@
     "references": [
         "HordeProtocol.Gameplay",
         "HordeProtocol.Data",
-        ""
+        "HordeProtocol.Tests"
     ],
     "includePlatforms": [
         "Editor"
